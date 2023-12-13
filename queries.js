@@ -55,6 +55,7 @@ const deleteLink = (req,res)=>{
     pool.query('DELETE FROM links WHERE id = $1',[id], (error, results)=>{
         if(error){
             throw error;
+            
         }
         response.status(201).send(`Link ${id} successfully removed.`)
     });
