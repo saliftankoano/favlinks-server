@@ -1,14 +1,14 @@
 const express = require('express');
 const app = express();
-
-const PORT = 5555;
-
+const cors = require('cors')
+const PORT = 5050;
 const db = require('./queries');
 
 const path = require('path');
 
 //MIDDLEWARE
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({extended: true}));
 
 //Host react app as stastic files
@@ -26,9 +26,9 @@ app.post('/api/links', db.createLink);
 //READ
 app.get('/api/links', db.getLinks);
 //UPDATE
-app.put('/api/links/', db.updateLink);
+app.put('/api/links/:id', db.updateLink);
 //DELETE
-app.delete('/api/links/', db.deleteLink);
+app.delete('/api/links/:id', db.deleteLink);
 
 
 // Starting express on the PORT

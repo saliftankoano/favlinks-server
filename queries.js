@@ -6,7 +6,7 @@ const pool = new POOL({
     user: 'salif',
     host: 'localhost',
     database: 'favlinks',
-    password: 'Engineerbbf23',
+    password: 'wiam94532',
     port: 5432
 })
 console.log(pool);
@@ -18,11 +18,12 @@ const createLink = (req,res)=>{
     const name = req.body.name;
     const url = req.body.url;
 
-    pool.query('INSERT INTO links(name, url) VALUES($1, $2)',[name, url], (error, results)=>{
+    pool.query('INSERT INTO links(name, url) VALUES($1, $2)',[name, url], (error, result)=>{
         if(error){
             throw error;
         }
-        response.status(201).send(`Link added with ID: ${results.insertId}`)
+        console.log(req.body);
+        res.send("Link successfully added :)")
     });
 }
 //Read Data in table links
@@ -45,19 +46,17 @@ const updateLink = (req,res)=>{
         if(error){
             throw error;
         }
-        response.status(201).send(`Link with ID: ${id} was succesfully updated.`)
+        res.status(201).send(`Link with ID: ${id} was succesfully updated.`)
     });
 }
 //DELETE A LINK
 const deleteLink = (req,res)=>{
     const id = parseInt(req.params.id)
-
     pool.query('DELETE FROM links WHERE id = $1',[id], (error, results)=>{
         if(error){
             throw error;
-            
         }
-        response.status(201).send(`Link ${id} successfully removed.`)
+        res.status(201).send(`Link ${id} successfully removed.`)
     });
 }
 //Export functions
